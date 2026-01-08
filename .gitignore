@@ -1,0 +1,22 @@
+# Pin kit (NO commitearlo)
+pin*/
+*.so
+*.o
+obj-*
+
+# Build artifacts
+*.d
+*.log
+
+# Results (pueden ser grandes)
+results/
+*.txt
+*.csv
+
+# User-specific config
+config.mk
+
+# IDE
+.vscode/
+.idea/
+*.swp

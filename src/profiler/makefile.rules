@@ -1,0 +1,15 @@
+# Tools a compilar
+TEST_TOOL_ROOTS := inst_counter
+
+# Dejar estos vacíos
+TEST_ROOTS :=
+TOOL_ROOTS :=
+SA_TOOL_ROOTS :=
+APP_ROOTS :=
+OBJECT_ROOTS :=
+DLL_ROOTS :=
+LIB_ROOTS :=
+
+# Sanity subset
+SANITY_SUBSET := $(TEST_TOOL_ROOTS) $(TEST_ROOTS)
+

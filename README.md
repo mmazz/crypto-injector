@@ -2,6 +2,12 @@
 
 Dynamic binary instrumentation tool for architectural fault injection in CKKS (OpenFHE).
 
+We compile OpenFHE with CKKS using the default dynamically linked build (i.e., without static linking).
+
+Using a statically linked binary significantly reduces instrumentation granularity, since system libraries (e.g., libc) are merged into the same executable.
+
+By relying on dynamic linking, we can use Pin’s -l 0 option to exclude shared system libraries from instrumentation, allowing us to focus exclusively on OpenFHE’s code and reduce noise and overhead.
+
 ## Quick Start
 
 ### 1. Setup Intel Pin
@@ -36,6 +42,29 @@ make injectors  # Build fault injector
   --opcode VADDPD \
   --num-faults 1000
 ```
+
+## Notes
+
+To use Openfhe first export:
+
+```bash
+export LD_LIBRARY_PATH=$HOME/openfhe-PRNG-Control/install/lib:$LD_LIBRARY_PATH
+```
+
+To compile the campaings:
+
+```bash
+cmake -DCMAKE_PREFIX_PATH=$HOME/openfhe-PRNG-Control/install -DBUILD_STATIC=OFF -DCMAKE_BUILD_TYPE=Release ..
+make -j16
+```
+To compile the library:
+
+```bash
+cmake -DCMAKE_INSTALL_PREFIX=$HOME/openfhe-PRNG-Control/install -DBUILD_STATIC=OFF -DBUILD_SHARED=ON -DCMAKE_BUILD_TYPE=Release -DWITH_OPENMP=OFF -DBUILD_UNITTESTS=OFF -DBUILD_BENCHMARKS=OFF -DBUILD_EXTRAS=OFF ..
+make -j16
+sudo make install
+```
+
 
 ## Project Structure
 
